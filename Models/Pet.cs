@@ -26,4 +26,14 @@ public class Pet
     public string OwnerId { get; set; } = string.Empty; //foreign key to the ApplicationUser (owner) of the pet
 
 public ApplicationUser Owner { get; set; } = null!; //navigation property to the ApplicationUser (owner) of the pet
+
+
+public ICollection<Appointment> Appointments { get; set; }
+    = new List<Appointment>();
+
+public ICollection<Vaccination> Vaccinations { get; set; }
+    = new List<Vaccination>();
+
+
+
 }

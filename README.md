@@ -1,4 +1,10 @@
 # VetCare
+
+Haxhere AZIZI
+B231210579
+1B
+
+
 VetCare – Veteriner Klinik ve Hasta Takip Sistemi
 
 VetCare, veteriner kliniklerinin hizmetlerini, veteriner hekimlerini, evcil hayvanları ve randevu süreçlerini dijital ortamda yönetmelerini sağlayan ASP.NET Core MVC tabanlı bir web uygulamasıdır.
