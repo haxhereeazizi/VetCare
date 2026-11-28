@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using VetCare.Models;
+using VetCare.Constants;
 
 namespace VetCare.Areas.Identity.Pages.Account
 {
@@ -122,8 +123,33 @@ namespace VetCare.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    // Assign the default PetOwner role
+                    var roleResult = await _userManager.AddToRoleAsync(
+                        user, RoleNames.PetOwner);
+
+                    if (!roleResult.Succeeded)
+                    {
+                        _logger.LogError(
+                            "Failed to assign PetOwner role to new user.");
+
+                        // Remove the incomplete account
+                        var deleteResult = await _userManager.DeleteAsync(user);
+
+                        if (!deleteResult.Succeeded)
+                        {
+                            _logger.LogError(
+                                "Failed to delete incomplete user account.");
+                        }
+
+                        ModelState.AddModelError(
+                            string.Empty,
+                            "Registration could not be completed. Please try again.");
+
+                        return Page();
+                    }
+
                     _logger.LogInformation(
-                        "User created a new account with password.");
+                        "User created a new account with PetOwner role.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
 

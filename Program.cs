@@ -24,6 +24,16 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+// Seed application roles
+using (var scope = app.Services.CreateScope())
+{
+    await RoleSeeder.SeedRolesAsync(scope.ServiceProvider);
+
+    await AdminSeeder.SeedAdminAsync(
+        scope.ServiceProvider,
+        app.Configuration);
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
